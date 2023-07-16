@@ -1,5 +1,4 @@
 import { Endpoint } from 'endpoint-client';
-import { CalendarDto, PaymentLogDto, UserDto } from '../../dto';
 
 // GET /admin/statistics
 export type GetAdminStatisticsParameter = {};
@@ -19,7 +18,10 @@ export type GetAdminStatisticsResponse = {
     money: number;
 };
 
-export const getAdminStatistics: Endpoint<GetAdminStatisticsParameter, GetAdminStatisticsResponse> = {
+export const getAdminStatistics: Endpoint<
+    GetAdminStatisticsParameter,
+    GetAdminStatisticsResponse
+> = {
     method: 'GET',
     path: () => '/admin/statistics',
     bodyParams: [],

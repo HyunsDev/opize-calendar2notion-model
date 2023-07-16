@@ -1,5 +1,4 @@
 import { Endpoint } from 'endpoint-client';
-import { CalendarDto, PaymentLogDto, UserDto } from '../../../dto';
 
 // POST /admin/users/:userId/event
 export type PostAdminUserEventParameter = {
@@ -13,7 +12,10 @@ export type PostAdminUserEventResponse = {
     googleCalendarEvent: any;
     notionPage: any;
 };
-export const postAdminUserEvent: Endpoint<PostAdminUserEventParameter, PostAdminUserEventResponse> = {
+export const postAdminUserEvent: Endpoint<
+    PostAdminUserEventParameter,
+    PostAdminUserEventResponse
+> = {
     method: 'POST',
     path: (e) => `/admin/users/${e.userId}/event`,
     bodyParams: ['eventLinkId', 'googleCalendarEventId', 'notionPageId'],
