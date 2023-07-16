@@ -11,6 +11,15 @@ import {
 import { EventEntity } from './event.entity';
 import { UserEntity } from './user.entity';
 
+export type CalendarStatus = 'DISCONNECTED' | 'PENDING' | 'CONNECTED';
+
+export type CalendarAccessRole =
+    | 'none'
+    | 'freeBusyReader'
+    | 'reader'
+    | 'writer'
+    | 'owner';
+
 @Entity('calendar')
 export class CalendarEntity {
     @PrimaryGeneratedColumn()
@@ -23,10 +32,10 @@ export class CalendarEntity {
     googleCalendarName: string;
 
     @Column({ length: '300', default: 'PENDING' })
-    status: 'DISCONNECTED' | 'PENDING' | 'CONNECTED';
+    status: CalendarStatus;
 
     @Column({ length: '300' })
-    accessRole: 'none' | 'freeBusyReader' | 'reader' | 'writer' | 'owner';
+    accessRole: CalendarAccessRole;
 
     @Column({ length: '300', nullable: true })
     notionPropertyId?: string;
@@ -50,7 +59,7 @@ export class CalendarEntity {
     static create(data: {
         googleCalendarId: string;
         googleCalendarName: string;
-        accessRole: 'none' | 'freeBusyReader' | 'reader' | 'writer' | 'owner';
+        accessRole: CalendarAccessRole;
         user: UserEntity;
     }) {
         const calendar = new CalendarEntity();

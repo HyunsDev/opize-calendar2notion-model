@@ -56,23 +56,6 @@ export class EventEntity {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    // constructor(
-    //     partial: Pick<
-    //         EventEntity,
-    //         | 'googleCalendarEventId'
-    //         | 'notionPageId'
-    //         | 'googleCalendarCalendarId'
-    //         | 'status'
-    //         | 'willRemove'
-    //         | 'user'
-    //         | 'calendar'
-    //         | 'lastNotionUpdate'
-    //         | 'lastGoogleCalendarUpdate'
-    //     >,
-    // ) {
-    //     Object.assign(this, partial);
-    // }
-
     static create(data: {
         googleCalendarEventId: string;
         notionPageId: string;

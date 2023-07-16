@@ -10,13 +10,15 @@ import {
 } from 'typeorm';
 import { UserEntity } from './user.entity';
 
+export type Migration1Step = 'ACCOUNT' | 'CALENDAR';
+
 @Entity('migration1')
 export class Migration1Entity {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    step: 'ACCOUNT' | 'CALENDAR';
+    step: Migration1Step;
 
     @Column({ type: 'int' })
     migrationUserId: number;
@@ -53,7 +55,7 @@ export class Migration1Entity {
     userId: number;
 
     static create(data: {
-        step: 'ACCOUNT' | 'CALENDAR';
+        step: Migration1Step;
         migrationUserId: number;
         migrationUserEmail: string;
         migrationUserName: string;

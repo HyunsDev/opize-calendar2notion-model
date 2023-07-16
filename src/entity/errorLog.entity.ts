@@ -9,6 +9,15 @@ import {
 } from 'typeorm';
 import { UserEntity } from './user.entity';
 
+export type ErrorLogFrom =
+    | 'GOOGLE CALENDAR'
+    | 'NOTION'
+    | 'SYNCBOT'
+    | 'COMPLEX'
+    | 'UNKNOWN';
+export type ErrorLogLevel = 'NOTICE' | 'WARN' | 'ERROR' | 'CRIT' | 'EMERGENCY';
+export type ErrorLogFinishWork = 'STOP' | 'RETRY';
+
 @Entity('error_log')
 export class ErrorLogEntity {
     @PrimaryGeneratedColumn()
@@ -18,7 +27,7 @@ export class ErrorLogEntity {
     code: string;
 
     @Column({ length: 300 })
-    from: 'GOOGLE CALENDAR' | 'NOTION' | 'SYNCBOT' | 'COMPLEX' | 'UNKNOWN';
+    from: ErrorLogFrom;
 
     @Column({ length: 300 })
     description: string;
@@ -38,13 +47,13 @@ export class ErrorLogEntity {
      * EMERGENCY: Calendar2notion 자체의 심각한 오류
      */
     @Column({ length: 300 })
-    level: 'NOTICE' | 'WARN' | 'ERROR' | 'CRIT' | 'EMERGENCY';
+    level: ErrorLogLevel;
 
     @Column({ type: 'boolean', default: false })
     archive: boolean;
 
     @Column({ length: 300 })
-    finishWork: 'STOP' | 'RETRY';
+    finishWork: ErrorLogFinishWork;
 
     @ManyToOne(() => UserEntity, (user) => user.errorLogs)
     @JoinColumn({ name: 'userId' })
@@ -59,24 +68,15 @@ export class ErrorLogEntity {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    // constructor(
-    //     partial: Omit<
-    //         ErrorLogEntity,
-    //         'id' | 'createdAt' | 'updatedAt' | 'userId'
-    //     >,
-    // ) {
-    //     Object.assign(this, partial);
-    // }
-
     static create(data: {
         code: string;
-        from: 'GOOGLE CALENDAR' | 'NOTION' | 'SYNCBOT' | 'COMPLEX' | 'UNKNOWN';
+        from: ErrorLogFrom;
         description: string;
         detail?: string;
         stack?: string;
-        level: 'NOTICE' | 'WARN' | 'ERROR' | 'CRIT' | 'EMERGENCY';
+        level: ErrorLogLevel;
         archive?: boolean;
-        finishWork: 'STOP' | 'RETRY';
+        finishWork: ErrorLogFinishWork;
         user: UserEntity;
     }) {
         const errorLog = new ErrorLogEntity();
