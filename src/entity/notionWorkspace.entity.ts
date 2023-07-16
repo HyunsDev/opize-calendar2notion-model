@@ -34,16 +34,18 @@ export class NotionWorkspaceEntity {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    constructor(data: {
+    static create(data: {
         workspaceId: string;
         accessToken: string;
         botId: string;
         tokenType: string;
     }) {
-        if (!data) return;
-        this.workspaceId = data.workspaceId;
-        this.accessToken = data.accessToken;
-        this.botId = data.botId;
-        this.tokenType = data.tokenType;
+        const notionWorkspace = new NotionWorkspaceEntity();
+        notionWorkspace.workspaceId = data.workspaceId;
+        notionWorkspace.accessToken = data.accessToken;
+        notionWorkspace.botId = data.botId;
+        notionWorkspace.tokenType = data.tokenType;
+
+        return notionWorkspace;
     }
 }

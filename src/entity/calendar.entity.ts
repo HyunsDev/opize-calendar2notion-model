@@ -47,15 +47,18 @@ export class CalendarEntity {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    constructor(
-        pick: Pick<
-            CalendarEntity,
-            'googleCalendarId' | 'googleCalendarName' | 'accessRole' | 'user'
-        >,
-    ) {
-        Object.assign(this, {
-            ...pick,
-            status: 'PENDING',
-        });
+    static create(data: {
+        googleCalendarId: string;
+        googleCalendarName: string;
+        accessRole: 'none' | 'freeBusyReader' | 'reader' | 'writer' | 'owner';
+        user: UserEntity;
+    }) {
+        const calendar = new CalendarEntity();
+        calendar.googleCalendarId = data.googleCalendarId;
+        calendar.googleCalendarName = data.googleCalendarName;
+        calendar.accessRole = data.accessRole;
+        calendar.user = data.user;
+
+        return calendar;
     }
 }

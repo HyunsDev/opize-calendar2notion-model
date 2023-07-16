@@ -56,20 +56,45 @@ export class EventEntity {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    constructor(
-        partial: Pick<
-            EventEntity,
-            | 'googleCalendarEventId'
-            | 'notionPageId'
-            | 'googleCalendarCalendarId'
-            | 'status'
-            | 'willRemove'
-            | 'user'
-            | 'calendar'
-            | 'lastNotionUpdate'
-            | 'lastGoogleCalendarUpdate'
-        >,
-    ) {
-        Object.assign(this, partial);
+    // constructor(
+    //     partial: Pick<
+    //         EventEntity,
+    //         | 'googleCalendarEventId'
+    //         | 'notionPageId'
+    //         | 'googleCalendarCalendarId'
+    //         | 'status'
+    //         | 'willRemove'
+    //         | 'user'
+    //         | 'calendar'
+    //         | 'lastNotionUpdate'
+    //         | 'lastGoogleCalendarUpdate'
+    //     >,
+    // ) {
+    //     Object.assign(this, partial);
+    // }
+
+    static create(data: {
+        googleCalendarEventId: string;
+        notionPageId: string;
+        googleCalendarCalendarId: string;
+        status: 'READY' | 'SYNCED';
+        willRemove: boolean;
+        user: UserEntity;
+        calendar: CalendarEntity;
+        lastNotionUpdate: Date;
+        lastGoogleCalendarUpdate: Date;
+    }) {
+        const event = new EventEntity();
+        event.googleCalendarEventId = data.googleCalendarEventId;
+        event.notionPageId = data.notionPageId;
+        event.googleCalendarCalendarId = data.googleCalendarCalendarId;
+        event.status = data.status;
+        event.willRemove = data.willRemove;
+        event.user = data.user;
+        event.calendar = data.calendar;
+        event.lastNotionUpdate = data.lastNotionUpdate;
+        event.lastGoogleCalendarUpdate = data.lastGoogleCalendarUpdate;
+
+        return event;
     }
 }

@@ -156,4 +156,21 @@ export class UserEntity {
 
     @OneToMany(() => PaymentLogEntity, (e) => e.user)
     paymentLogs: PaymentLogEntity[];
+
+    static create(data: {
+        name: string;
+        email: string;
+        imageUrl: string;
+        opizeId: number;
+        opizeAccessToken: string;
+    }) {
+        const user = new UserEntity();
+        user.name = data.name;
+        user.email = data.email;
+        user.imageUrl = data.imageUrl;
+        user.opizeId = data.opizeId;
+        user.opizeAccessToken = data.opizeAccessToken;
+
+        return user;
+    }
 }

@@ -59,12 +59,37 @@ export class ErrorLogEntity {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    constructor(
-        partial: Omit<
-            ErrorLogEntity,
-            'id' | 'createdAt' | 'updatedAt' | 'userId'
-        >,
-    ) {
-        Object.assign(this, partial);
+    // constructor(
+    //     partial: Omit<
+    //         ErrorLogEntity,
+    //         'id' | 'createdAt' | 'updatedAt' | 'userId'
+    //     >,
+    // ) {
+    //     Object.assign(this, partial);
+    // }
+
+    static create(data: {
+        code: string;
+        from: 'GOOGLE CALENDAR' | 'NOTION' | 'SYNCBOT' | 'COMPLEX' | 'UNKNOWN';
+        description: string;
+        detail?: string;
+        stack?: string;
+        level: 'NOTICE' | 'WARN' | 'ERROR' | 'CRIT' | 'EMERGENCY';
+        archive?: boolean;
+        finishWork: 'STOP' | 'RETRY';
+        user: UserEntity;
+    }) {
+        const errorLog = new ErrorLogEntity();
+        errorLog.code = data.code;
+        errorLog.from = data.from;
+        errorLog.description = data.description;
+        errorLog.detail = data.detail;
+        errorLog.stack = data.stack;
+        errorLog.level = data.level;
+        errorLog.archive = data.archive;
+        errorLog.finishWork = data.finishWork;
+        errorLog.user = data.user;
+
+        return errorLog;
     }
 }
