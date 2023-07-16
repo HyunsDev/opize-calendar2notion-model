@@ -1,60 +1,29 @@
-import { IsIn, IsNumber, IsString } from 'class-validator';
-import { UserPlan } from './user.dto';
-import { PaymentLogEntity } from '../entity';
-import { Expose, plainToClass } from 'class-transformer';
+import { PaymentLogEntity, UserPlan } from '../entity';
 
 export class PaymentLogDto {
-    @Expose()
-    @IsNumber()
     id: number;
-
-    @Expose()
-    @IsIn(['FREE', 'PRO', 'SPONSOR'])
     plan: UserPlan;
-
-    @Expose()
-    @IsString()
     paymentKind: string;
-
-    @Expose()
-    @IsNumber()
     price: number;
-
-    @Expose()
-    @IsString()
     priceKind: string;
-
-    @Expose()
-    @IsString()
     paymentTime: string;
-
-    @Expose()
-    @IsString()
     months: string;
-
-    @Expose()
-    @IsString()
     expirationTime: string;
-
-    @Expose()
-    @IsString()
     memo: string;
-
-    @Expose()
-    @IsNumber()
     userId: number;
-
-    @Expose()
-    @IsString()
     createdAt: string;
 
     constructor(paymentLog: PaymentLogEntity) {
-        if (!paymentLog) return;
-        Object.assign(
-            this,
-            plainToClass(PaymentLogDto, paymentLog, {
-                excludeExtraneousValues: true,
-            }),
-        );
+        this.id = paymentLog.id;
+        this.plan = paymentLog.plan;
+        this.paymentKind = paymentLog.paymentKind;
+        this.price = paymentLog.price;
+        this.priceKind = paymentLog.priceKind;
+        this.paymentTime = paymentLog.paymentTime.toISOString();
+        this.months = paymentLog.months;
+        this.expirationTime = paymentLog.expirationTime.toISOString();
+        this.memo = paymentLog.memo;
+        this.userId = paymentLog.userId;
+        this.createdAt = paymentLog.createdAt.toISOString();
     }
 }
