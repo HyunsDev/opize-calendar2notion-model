@@ -25,7 +25,7 @@ export class CalendarEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: '300' })
+    @Column({ length: '500' })
     googleCalendarId: string;
 
     @Column({ length: '300' })
