@@ -19,6 +19,7 @@
         "prettier": "^2.7.1"
     },
     "scripts": {
-        "build": "tsc"
+        "build": "tsc",
+        "publish": "yarn build && npm publish --access=public"
     }
 }
