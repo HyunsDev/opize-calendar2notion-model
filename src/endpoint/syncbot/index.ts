@@ -1,4 +1,5 @@
 import { Endpoint } from 'endpoint-client';
+import { SyncBotStatusDto } from 'src/dto';
 
 // POST /syncbots
 export type PostSyncBotParameter = {
@@ -18,27 +19,7 @@ export const postSyncBot: Endpoint<PostSyncBotParameter, PostSyncBotResponse> =
     };
 
 // GET /syncbots
-type ManagerStorageMap = {
-    prefix: string;
-    startedAt: Date;
-    timeout: number;
-    stop: boolean;
-    verizon: string;
 
-    workerAmount: {
-        pro: number;
-        free: number;
-        sponsor: number;
-    };
-
-    work: {
-        [id: string]: {
-            loopId: string;
-            nowWorkUserId: number | undefined;
-            completedSyncCount: number;
-        };
-    };
-};
 export type GetSyncBotsParameter = {};
 export type GetSyncBotsResponse = {
     id: number;
@@ -47,7 +28,7 @@ export type GetSyncBotsResponse = {
     prefix: string;
     createdAt: Date;
     status: 'good' | 'error';
-    data: ManagerStorageMap;
+    data: SyncBotStatusDto;
 }[];
 export const getSyncBots: Endpoint<GetSyncBotsParameter, GetSyncBotsResponse> =
     {
