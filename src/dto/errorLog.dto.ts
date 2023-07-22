@@ -1,4 +1,4 @@
-import { ErrorLogEntity } from 'src/entity';
+import { ErrorLogEntity } from '../entity';
 
 export class ErrorLogDto {
     id: number;
