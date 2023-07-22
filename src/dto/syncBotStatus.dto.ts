@@ -9,7 +9,7 @@ export class SyncBotStatusDto {
     syncBot: {
         prefix: string;
         startedAt: Date;
-        verizon: string;
+        version: string;
         workerAmount: {
             init: number;
             pro: number;
