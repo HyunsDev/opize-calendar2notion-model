@@ -1,6 +1,6 @@
 export class SyncBotStatusDto {
     worker: {
-        prefix: string;
+        loopId: string;
         nowWorkUserId?: number;
         completedSyncCount: number;
         startedAt?: string;
