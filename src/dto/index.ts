@@ -3,3 +3,4 @@ export * from './calendar.dto';
 export * from './paymentLog.dto';
 export * from './googleCalendar.dto';
 export * from './errorLog.dto';
+export * from './syncBotStatus.dto';

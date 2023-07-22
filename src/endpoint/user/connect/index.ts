@@ -1,13 +1,16 @@
 import { Endpoint } from 'endpoint-client';
 
 // POST /user/:userId/connect/google-api
-export type PostConnectGoogleAPIParameters = {
+export type PostConnectGoogleAPIParameter = {
     userId: 'me' | number;
     code: string;
     callbackVersion: number;
 };
 export type PostConnectGoogleAPIResponse = {};
-export const postConnectGoogleAPI: Endpoint<PostConnectGoogleAPIParameters, PostConnectGoogleAPIResponse> = {
+export const postConnectGoogleAPI: Endpoint<
+    PostConnectGoogleAPIParameter,
+    PostConnectGoogleAPIResponse
+> = {
     method: 'POST',
     path: (e) => `/users/${e.userId}/connect/google-api`,
     bodyParams: ['code', 'callbackVersion'],
@@ -16,13 +19,16 @@ export const postConnectGoogleAPI: Endpoint<PostConnectGoogleAPIParameters, Post
 };
 
 // POST /user/:userId/connect/notion-api
-export type PostConnectNotionAPIParameters = {
+export type PostConnectNotionAPIParameter = {
     userId: 'me' | number;
     code: string;
     redirectUrl: string;
 };
 export type PostConnectNotionAPIResponse = {};
-export const postConnectNotionAPI: Endpoint<PostConnectNotionAPIParameters, PostConnectNotionAPIResponse> = {
+export const postConnectNotionAPI: Endpoint<
+    PostConnectNotionAPIParameter,
+    PostConnectNotionAPIResponse
+> = {
     method: 'POST',
     path: (e) => `/users/${e.userId}/connect/notion-api`,
     bodyParams: ['code', 'redirectUrl'],
@@ -31,12 +37,12 @@ export const postConnectNotionAPI: Endpoint<PostConnectNotionAPIParameters, Post
 };
 
 // GET /user/:userId/connect/notion-database
-export type GetConnectNotionDatabasesParameters = {
+export type GetConnectNotionDatabasesParameter = {
     userId: 'me' | number;
 };
 export type GetConnectNotionDatabasesResponse = any;
 export const getConnectNotionDatabases: Endpoint<
-    GetConnectNotionDatabasesParameters,
+    GetConnectNotionDatabasesParameter,
     GetConnectNotionDatabasesResponse
 > = {
     method: 'GET',
@@ -47,14 +53,14 @@ export const getConnectNotionDatabases: Endpoint<
 };
 
 // POST /user/:userId/connect/notion-database
-export type PostConnectNotionDatabaseParameters = {
+export type PostConnectNotionDatabaseParameter = {
     userId: 'me' | number;
     id: string;
 };
 export type PostConnectNotionDatabaseResponse = {};
 
 export const postConnectNotionDatabase: Endpoint<
-    PostConnectNotionDatabaseParameters,
+    PostConnectNotionDatabaseParameter,
     PostConnectNotionDatabaseResponse
 > = {
     method: 'POST',
@@ -65,13 +71,13 @@ export const postConnectNotionDatabase: Endpoint<
 };
 
 // POST /user/:userId/connect/exist-notion-database
-export type PostConnectExistNotionDatabaseParameters = {
+export type PostConnectExistNotionDatabaseParameter = {
     userId: 'me' | number;
     databaseId: string;
 };
 export type PostConnectExistNotionDatabaseResponse = {};
 export const postConnectExistNotionDatabase: Endpoint<
-    PostConnectExistNotionDatabaseParameters,
+    PostConnectExistNotionDatabaseParameter,
     PostConnectExistNotionDatabaseResponse
 > = {
     method: 'POST',

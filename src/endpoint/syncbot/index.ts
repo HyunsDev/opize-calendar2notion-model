@@ -1,20 +1,21 @@
 import { Endpoint } from 'endpoint-client';
 
 // POST /syncbots
-export type PostSyncBotParameters = {
+export type PostSyncBotParameter = {
     prefix: string;
     name: string;
     url: string;
     controlSecret: string;
 };
 export type PostSyncBotResponse = {};
-export const postSyncBot: Endpoint<PostSyncBotParameters, PostSyncBotResponse> = {
-    method: 'POST',
-    path: () => '/syncbots',
-    bodyParams: ['name', 'url', 'prefix', 'controlSecret'],
-    pathParams: [],
-    queryParams: [],
-};
+export const postSyncBot: Endpoint<PostSyncBotParameter, PostSyncBotResponse> =
+    {
+        method: 'POST',
+        path: () => '/syncbots',
+        bodyParams: ['name', 'url', 'prefix', 'controlSecret'],
+        pathParams: [],
+        queryParams: [],
+    };
 
 // GET /syncbots
 type ManagerStorageMap = {
@@ -38,7 +39,7 @@ type ManagerStorageMap = {
         };
     };
 };
-export type GetSyncBotsParameters = {};
+export type GetSyncBotsParameter = {};
 export type GetSyncBotsResponse = {
     id: number;
     name: string;
@@ -48,20 +49,24 @@ export type GetSyncBotsResponse = {
     status: 'good' | 'error';
     data: ManagerStorageMap;
 }[];
-export const getSyncBots: Endpoint<GetSyncBotsParameters, GetSyncBotsResponse> = {
-    method: 'GET',
-    path: () => '/syncbots',
-    bodyParams: [],
-    pathParams: [],
-    queryParams: [],
-};
+export const getSyncBots: Endpoint<GetSyncBotsParameter, GetSyncBotsResponse> =
+    {
+        method: 'GET',
+        path: () => '/syncbots',
+        bodyParams: [],
+        pathParams: [],
+        queryParams: [],
+    };
 
 // DELETE /syncbots/:prefix
-export type DeleteSyncBotParameters = {
+export type DeleteSyncBotParameter = {
     prefix: string;
 };
 export type DeleteSyncBotResponse = {};
-export const deleteSyncBot: Endpoint<DeleteSyncBotParameters, DeleteSyncBotResponse> = {
+export const deleteSyncBot: Endpoint<
+    DeleteSyncBotParameter,
+    DeleteSyncBotResponse
+> = {
     method: 'DELETE',
     path: (e) => `/syncbots/${e.prefix}`,
     bodyParams: [],
@@ -70,11 +75,14 @@ export const deleteSyncBot: Endpoint<DeleteSyncBotParameters, DeleteSyncBotRespo
 };
 
 // POST /syncbot/:prefix/stop
-export type PostSyncBotStopParameters = {
+export type PostSyncBotStopParameter = {
     prefix: string;
 };
 export type PostSyncBotStopResponse = {};
-export const postSyncBotStop: Endpoint<PostSyncBotStopParameters, PostSyncBotStopResponse> = {
+export const postSyncBotStop: Endpoint<
+    PostSyncBotStopParameter,
+    PostSyncBotStopResponse
+> = {
     method: 'POST',
     path: (e) => `/syncbots/${e.prefix}/stop`,
     bodyParams: [],
@@ -87,7 +95,10 @@ export type PostSyncBotExitParameter = {
     prefix: string;
 };
 export type PostSyncBotExitResponse = {};
-export const postSyncBotExit: Endpoint<PostSyncBotExitParameter, PostSyncBotExitResponse> = {
+export const postSyncBotExit: Endpoint<
+    PostSyncBotExitParameter,
+    PostSyncBotExitResponse
+> = {
     method: 'POST',
     path: (e) => `/syncbots/${e.prefix}/exit`,
     bodyParams: [],
@@ -96,7 +107,7 @@ export const postSyncBotExit: Endpoint<PostSyncBotExitParameter, PostSyncBotExit
 };
 
 // GET /syncbot/:prefix/logs/:date
-export type GetSyncBotLogsParameters = {
+export type GetSyncBotLogsParameter = {
     prefix: string;
     date: 'today' | string;
 };
@@ -105,7 +116,10 @@ export type GetSyncBotLogsResponse = {
     serverLog: string;
     workerLog: string;
 };
-export const getSyncBotLogs: Endpoint<GetSyncBotLogsParameters, GetSyncBotLogsResponse> = {
+export const getSyncBotLogs: Endpoint<
+    GetSyncBotLogsParameter,
+    GetSyncBotLogsResponse
+> = {
     path: (e) => `/syncbots/${e.prefix}/logs/${e.date}`,
     method: 'GET',
     bodyParams: [],
@@ -114,7 +128,7 @@ export const getSyncBotLogs: Endpoint<GetSyncBotLogsParameters, GetSyncBotLogsRe
 };
 
 // GET /syncbot/:prefix/logs-static/:fileName
-export type GetSyncBotStaticLogParameters = {
+export type GetSyncBotStaticLogParameter = {
     prefix: string;
     fileName: string;
 };
@@ -122,7 +136,10 @@ export type GetSyncBotStaticLogResponse = {
     data: string;
 };
 
-export const getSyncBotStaticLog: Endpoint<GetSyncBotStaticLogParameters, GetSyncBotStaticLogResponse> = {
+export const getSyncBotStaticLog: Endpoint<
+    GetSyncBotStaticLogParameter,
+    GetSyncBotStaticLogResponse
+> = {
     path: (e) => `/syncbots/${e.prefix}/logs-static`,
     method: 'GET',
     bodyParams: [],
@@ -131,7 +148,7 @@ export const getSyncBotStaticLog: Endpoint<GetSyncBotStaticLogParameters, GetSyn
 };
 
 // GET /syncbot/:prefix/logs
-export type GetSyncBotLogListParameters = {
+export type GetSyncBotLogListParameter = {
     prefix: string;
 };
 export type GetSyncBotLogListResponse = {
@@ -142,7 +159,10 @@ export type GetSyncBotLogListResponse = {
     serverErrorLogs: string[];
     workerErrorLogs: string[];
 };
-export const getSyncBotLogList: Endpoint<GetSyncBotLogListParameters, GetSyncBotLogListResponse> = {
+export const getSyncBotLogList: Endpoint<
+    GetSyncBotLogListParameter,
+    GetSyncBotLogListResponse
+> = {
     path: (e) => `/syncbots/${e.prefix}/logs`,
     method: 'GET',
     bodyParams: [],

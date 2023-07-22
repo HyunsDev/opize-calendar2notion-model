@@ -19,7 +19,7 @@ export type MigrateV1CheckUser = {
     }[];
 };
 
-export type getMigrateV1CheckParameters = {
+export type getMigrateV1CheckParameter = {
     userId: number | 'me';
 };
 export type getMigrateV1CheckResponse =
@@ -32,7 +32,7 @@ export type getMigrateV1CheckResponse =
           user: MigrateV1CheckUser;
       };
 export const getMigrateV1Check: Endpoint<
-    getMigrateV1CheckParameters,
+    getMigrateV1CheckParameter,
     getMigrateV1CheckResponse
 > = {
     method: 'GET',
@@ -43,7 +43,7 @@ export const getMigrateV1Check: Endpoint<
 };
 
 // POST /migrate/v1/account-migrate
-export type postMigrateV1AccountMigrateParameters = {
+export type postMigrateV1AccountMigrateParameter = {
     userId: number | 'me';
 };
 export type postMigrateV1AccountMigrateResponse =
@@ -58,7 +58,7 @@ export type postMigrateV1AccountMigrateResponse =
           reason: 'ALREADY_MIGRATED';
       };
 export const postMigrateV1AccountMigrate: Endpoint<
-    postMigrateV1AccountMigrateParameters,
+    postMigrateV1AccountMigrateParameter,
     postMigrateV1AccountMigrateResponse
 > = {
     method: 'POST',
@@ -69,7 +69,7 @@ export const postMigrateV1AccountMigrate: Endpoint<
 };
 
 // POST /migrate/v1/calendar-migrate
-export type postMigrateV1CalendarMigrateParameters = {
+export type postMigrateV1CalendarMigrateParameter = {
     userId: number | 'me';
 };
 export type postMigrateV1CalendarMigrateResponse =
@@ -81,7 +81,7 @@ export type postMigrateV1CalendarMigrateResponse =
           reason: 'ALREADY_MIGRATED';
       };
 export const postMigrateV1CalendarMigrate: Endpoint<
-    postMigrateV1CalendarMigrateParameters,
+    postMigrateV1CalendarMigrateParameter,
     postMigrateV1CalendarMigrateResponse
 > = {
     method: 'POST',
