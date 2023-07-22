@@ -1,5 +1,5 @@
 import { Endpoint } from 'endpoint-client';
-import { UserDto, ErrorLogDto } from '../../dto';
+import { UserDto, ErrorLogDto } from '../../../dto';
 
 // GET /admin/errors
 export type GetAdminErrorsParameter = {
