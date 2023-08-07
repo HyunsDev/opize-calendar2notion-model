@@ -29,9 +29,18 @@ export class SyncBotEntity {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    constructor(
-        partial: Omit<SyncBotEntity, 'id' | 'createdAt' | 'updatedAt'>,
-    ) {
-        Object.assign(this, partial);
+    static create(data: {
+        name: string;
+        url: string;
+        prefix: string;
+        controlSecret: string;
+    }) {
+        const syncBot = new SyncBotEntity();
+        syncBot.name = data.name;
+        syncBot.url = data.url;
+        syncBot.prefix = data.prefix;
+        syncBot.controlSecret = data.controlSecret;
+
+        return syncBot;
     }
 }

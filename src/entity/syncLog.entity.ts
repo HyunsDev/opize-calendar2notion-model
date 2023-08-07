@@ -8,6 +8,8 @@ import {
 } from 'typeorm';
 import { UserEntity } from './user.entity';
 
+export type SyncLogStatus = 'SUCCESS' | 'FAIL' | 'WORKING' | 'CANCELED';
+
 @Entity('sync_log')
 export class SyncLogEntity {
     @PrimaryGeneratedColumn()
@@ -17,7 +19,7 @@ export class SyncLogEntity {
     detail: string;
 
     @Column()
-    status: 'SUCCESS' | 'FAIL' | 'WORKING' | 'CANCELED';
+    status: SyncLogStatus;
 
     @Column({ type: 'int', nullable: true })
     workingTime: number;
@@ -36,12 +38,14 @@ export class SyncLogEntity {
 
     static create(data: {
         detail: string;
+        status: SyncLogStatus;
         workingTime: number;
         archive?: boolean;
         user: UserEntity;
     }) {
         const syncLog = new SyncLogEntity();
         syncLog.detail = data.detail;
+        syncLog.status = data.status;
         syncLog.workingTime = data.workingTime;
         syncLog.archive = data.archive;
         syncLog.user = data.user;

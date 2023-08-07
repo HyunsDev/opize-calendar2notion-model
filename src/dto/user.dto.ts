@@ -1,122 +1,51 @@
-import { IsBoolean, IsIn, IsNumber, IsObject, IsString } from 'class-validator';
-import { UserEntity } from '../entity';
-import { Expose, plainToClass } from 'class-transformer';
-
-export type UserSyncStatus =
-    | 'FIRST'
-    | 'GOOGLE_SET'
-    | 'NOTION_API_SET'
-    | 'NOTION_SET'
-    | 'FINISHED';
-
-export type UserPlan = 'FREE' | 'PRO' | 'SPONSOR';
-
-export type NotionProps = {
-    calendar: string;
-    date: string;
-    delete: string;
-    title: string;
-    description?: string;
-    location?: string;
-};
+import { UserEntity, UserNotionProps, UserPlan, UserStatus } from '../entity';
 
 export class UserDto {
-    @Expose()
-    @IsNumber()
     id: number;
-
-    @Expose()
-    @IsString()
     name: string;
-
-    @Expose()
-    @IsString()
     email: string;
-
-    @Expose()
-    @IsString()
     imageUrl: string;
-
-    @Expose()
-    @IsNumber()
     opizeId: number;
-
-    @Expose()
-    @IsString()
     googleEmail: string;
-
-    @Expose()
-    @IsString()
     notionDatabaseId: string;
-
-    @Expose()
-    @IsString()
     lastCalendarSync: Date;
-
-    @Expose()
-    @IsString()
     lastSyncStatus: string;
-
-    @Expose()
-    @IsIn(['FIRST', 'GOOGLE_SET', 'NOTION_API_SET', 'NOTION_SET', 'FINISHED'])
-    status: UserSyncStatus;
-
-    @Expose()
-    @IsBoolean()
+    status: UserStatus;
     isConnected: boolean;
-
-    @Expose()
-    @IsString()
     userPlan: UserPlan;
-
-    @Expose()
-    @IsString()
     userTimeZone: string;
-
-    @Expose()
-    @IsObject()
-    notionProps: NotionProps;
-
-    @Expose()
-    @IsBoolean()
+    notionProps: UserNotionProps;
     isWork: boolean;
-
-    @Expose()
-    @IsString()
     workStartedAt: Date;
-
-    @Expose()
-    @IsBoolean()
     isAdmin: boolean;
-
-    @Expose()
-    @IsString()
     isPlanUnlimited: boolean;
-
-    @Expose()
-    @IsString()
     lastPaymentTime: string;
-
-    @Expose()
-    @IsString()
     nextPaymentTime: string;
-
-    @Expose()
-    @IsNumber()
     syncYear: number;
-
-    @Expose()
-    @IsString()
     createdAt: string;
 
     constructor(user: UserEntity) {
-        if (!user) {
-            return;
-        }
-        Object.assign(
-            this,
-            plainToClass(UserDto, user, { excludeExtraneousValues: true }),
-        );
-        this.notionProps = JSON.parse(user.notionProps || '{}');
+        this.id = user.id;
+        this.name = user.name;
+        this.email = user.email;
+        this.imageUrl = user.imageUrl;
+        this.opizeId = user.opizeId;
+        this.googleEmail = user.googleEmail;
+        this.notionDatabaseId = user.notionDatabaseId;
+        this.lastCalendarSync = user.lastCalendarSync;
+        this.lastSyncStatus = user.lastSyncStatus;
+        this.status = user.status;
+        this.isConnected = user.isConnected;
+        this.userPlan = user.userPlan;
+        this.userTimeZone = user.userTimeZone;
+        this.notionProps = user.parsedNotionProps;
+        this.isWork = user.isWork;
+        this.workStartedAt = user.workStartedAt;
+        this.isAdmin = user.isAdmin;
+        this.isPlanUnlimited = user.isPlanUnlimited;
+        this.lastPaymentTime = user.lastPaymentTime?.toISOString();
+        this.nextPaymentTime = user.nextPaymentTime?.toISOString();
+        this.syncYear = user.syncYear;
+        this.createdAt = user.createdAt.toISOString();
     }
 }

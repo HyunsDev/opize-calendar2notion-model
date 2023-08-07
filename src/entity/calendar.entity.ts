@@ -11,22 +11,31 @@ import {
 import { EventEntity } from './event.entity';
 import { UserEntity } from './user.entity';
 
+export type CalendarStatus = 'DISCONNECTED' | 'PENDING' | 'CONNECTED';
+
+export type CalendarAccessRole =
+    | 'none'
+    | 'freeBusyReader'
+    | 'reader'
+    | 'writer'
+    | 'owner';
+
 @Entity('calendar')
 export class CalendarEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: '300' })
+    @Column({ length: '500' })
     googleCalendarId: string;
 
     @Column({ length: '300' })
     googleCalendarName: string;
 
     @Column({ length: '300', default: 'PENDING' })
-    status: 'DISCONNECTED' | 'PENDING' | 'CONNECTED';
+    status: CalendarStatus;
 
     @Column({ length: '300' })
-    accessRole: 'none' | 'freeBusyReader' | 'reader' | 'writer' | 'owner';
+    accessRole: CalendarAccessRole;
 
     @Column({ length: '300', nullable: true })
     notionPropertyId?: string;
@@ -47,15 +56,18 @@ export class CalendarEntity {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    constructor(
-        pick: Pick<
-            CalendarEntity,
-            'googleCalendarId' | 'googleCalendarName' | 'accessRole' | 'user'
-        >,
-    ) {
-        Object.assign(this, {
-            ...pick,
-            status: 'PENDING',
-        });
+    static create(data: {
+        googleCalendarId: string;
+        googleCalendarName: string;
+        accessRole: CalendarAccessRole;
+        user: UserEntity;
+    }) {
+        const calendar = new CalendarEntity();
+        calendar.googleCalendarId = data.googleCalendarId;
+        calendar.googleCalendarName = data.googleCalendarName;
+        calendar.accessRole = data.accessRole;
+        calendar.user = data.user;
+
+        return calendar;
     }
 }

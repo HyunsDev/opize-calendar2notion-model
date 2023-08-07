@@ -15,6 +15,25 @@ import { EventEntity } from './event.entity';
 import { PaymentLogEntity } from './paymentLog.entity';
 import { NotionWorkspaceEntity } from './notionWorkspace.entity';
 
+export type UserStatus =
+    | 'FIRST'
+    | 'GOOGLE_SET'
+    | 'NOTION_API_SET'
+    | 'NOTION_SET'
+    | 'FINISHED';
+
+export type UserPlan = 'FREE' | 'PRO' | 'SPONSOR';
+
+export type UserNotionProps = {
+    title: string;
+    calendar: string;
+    date: string;
+    delete: string;
+    link?: string;
+    description?: string;
+    location?: string;
+};
+
 @Entity('user')
 export class UserEntity {
     @PrimaryGeneratedColumn()
@@ -63,12 +82,7 @@ export class UserEntity {
     lastSyncStatus: string;
 
     @Column({ length: 300, default: 'FIRST' })
-    status:
-        | 'FIRST'
-        | 'GOOGLE_SET'
-        | 'NOTION_API_SET'
-        | 'NOTION_SET'
-        | 'FINISHED';
+    status: UserStatus;
 
     @Column({ type: 'boolean', default: false })
     isConnected: boolean;
@@ -77,7 +91,7 @@ export class UserEntity {
     syncbotId: string;
 
     @Column({ default: 'FREE' })
-    userPlan: 'FREE' | 'PRO' | 'SPONSOR';
+    userPlan: UserPlan;
 
     @Column({ length: 300, default: 'Asia/Seoul' })
     userTimeZone: string;
@@ -85,15 +99,7 @@ export class UserEntity {
     @Column({ length: 1000, nullable: true })
     notionProps: string;
 
-    public get parsedNotionProps(): {
-        title: string;
-        calendar: string;
-        date: string;
-        delete: string;
-        link?: string;
-        description?: string;
-        location?: string;
-    } {
+    public get parsedNotionProps(): UserNotionProps {
         return JSON.parse(this.notionProps);
     }
 
@@ -156,4 +162,21 @@ export class UserEntity {
 
     @OneToMany(() => PaymentLogEntity, (e) => e.user)
     paymentLogs: PaymentLogEntity[];
+
+    static create(data: {
+        name: string;
+        email: string;
+        imageUrl: string;
+        opizeId: number;
+        opizeAccessToken: string;
+    }) {
+        const user = new UserEntity();
+        user.name = data.name;
+        user.email = data.email;
+        user.imageUrl = data.imageUrl;
+        user.opizeId = data.opizeId;
+        user.opizeAccessToken = data.opizeAccessToken;
+
+        return user;
+    }
 }

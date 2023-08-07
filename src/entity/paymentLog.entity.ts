@@ -51,12 +51,28 @@ export class PaymentLogEntity {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    constructor(
-        partial: Omit<
-            PaymentLogEntity,
-            'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'userId'
-        >,
-    ) {
-        Object.assign(this, partial);
+    static create(data: {
+        plan: 'FREE' | 'PRO';
+        paymentKind: string;
+        price: number;
+        priceKind: string;
+        paymentTime: Date;
+        months: string;
+        expirationTime: Date;
+        memo: string;
+        user: UserEntity;
+    }) {
+        const paymentLog = new PaymentLogEntity();
+        paymentLog.plan = data.plan;
+        paymentLog.paymentKind = data.paymentKind;
+        paymentLog.price = data.price;
+        paymentLog.priceKind = data.priceKind;
+        paymentLog.paymentTime = data.paymentTime;
+        paymentLog.months = data.months;
+        paymentLog.expirationTime = data.expirationTime;
+        paymentLog.memo = data.memo;
+        paymentLog.user = data.user;
+
+        return paymentLog;
     }
 }
