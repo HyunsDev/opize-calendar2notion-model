@@ -1,6 +1,6 @@
 {
     "name": "@opize/calendar2notion-object",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -22,7 +22,7 @@
     },
     "scripts": {
         "build": "rm -rf dist && tsc",
-        "publish": "yarn build && npm publish"
+        "publish": "npm publish"
     },
     "publishConfig": {
         "access": "public"
