@@ -1,5 +1,11 @@
-import { CalendarAccessRole, CalendarEntity, CalendarStatus } from '../entity';
+export type CalendarStatus = 'DISCONNECTED' | 'PENDING' | 'CONNECTED';
 
+export type CalendarAccessRole =
+    | 'none'
+    | 'freeBusyReader'
+    | 'reader'
+    | 'writer'
+    | 'owner';
 export class CalendarDto {
     id: number;
     googleCalendarId: string;
@@ -9,18 +15,4 @@ export class CalendarDto {
     notionPropertyId?: string;
     userId: number;
     createdAt: Date;
-
-    static from(calendar: CalendarEntity) {
-        const calendarDto = new CalendarDto();
-        calendarDto.id = calendar.id;
-        calendarDto.googleCalendarId = calendar.googleCalendarId;
-        calendarDto.googleCalendarName = calendar.googleCalendarName;
-        calendarDto.status = calendar.status;
-        calendarDto.accessRole = calendar.accessRole;
-        calendarDto.notionPropertyId = calendar.notionPropertyId;
-        calendarDto.userId = calendar.userId;
-        calendarDto.createdAt = calendar.createdAt;
-
-        return calendarDto;
-    }
 }

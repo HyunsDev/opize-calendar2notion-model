@@ -1,4 +1,22 @@
-import { UserEntity, UserNotionProps, UserPlan, UserStatus } from '../entity';
+export type UserStatus =
+    | 'FIRST'
+    | 'GOOGLE_SET'
+    | 'NOTION_API_SET'
+    | 'NOTION_SET'
+    | 'FINISHED';
+
+export type UserPlan = 'FREE' | 'PRO' | 'SPONSOR';
+
+export type UserNotionProps = {
+    title: string;
+    calendar: string;
+    date: string;
+    delete: string;
+    link?: string;
+    description?: string;
+    location?: string;
+    last_edited_by?: string;
+};
 
 export class UserDto {
     id: number;
@@ -23,29 +41,4 @@ export class UserDto {
     nextPaymentTime: string;
     syncYear: number;
     createdAt: string;
-
-    constructor(user: UserEntity) {
-        this.id = user.id;
-        this.name = user.name;
-        this.email = user.email;
-        this.imageUrl = user.imageUrl;
-        this.opizeId = user.opizeId;
-        this.googleEmail = user.googleEmail;
-        this.notionDatabaseId = user.notionDatabaseId;
-        this.lastCalendarSync = user.lastCalendarSync;
-        this.lastSyncStatus = user.lastSyncStatus;
-        this.status = user.status;
-        this.isConnected = user.isConnected;
-        this.userPlan = user.userPlan;
-        this.userTimeZone = user.userTimeZone;
-        this.notionProps = user.parsedNotionProps;
-        this.isWork = user.isWork;
-        this.workStartedAt = user.workStartedAt;
-        this.isAdmin = user.isAdmin;
-        this.isPlanUnlimited = user.isPlanUnlimited;
-        this.lastPaymentTime = user.lastPaymentTime?.toISOString();
-        this.nextPaymentTime = user.nextPaymentTime?.toISOString();
-        this.syncYear = user.syncYear;
-        this.createdAt = user.createdAt.toISOString();
-    }
 }

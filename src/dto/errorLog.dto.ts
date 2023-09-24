@@ -1,4 +1,11 @@
-import { ErrorLogEntity } from '../entity';
+export type ErrorLogFrom =
+    | 'GOOGLE CALENDAR'
+    | 'NOTION'
+    | 'SYNCBOT'
+    | 'COMPLEX'
+    | 'UNKNOWN';
+export type ErrorLogLevel = 'NOTICE' | 'WARN' | 'ERROR' | 'CRIT' | 'EMERGENCY';
+export type ErrorLogFinishWork = 'STOP' | 'RETRY';
 
 export class ErrorLogDto {
     id: number;
@@ -12,21 +19,4 @@ export class ErrorLogDto {
     finishWork: 'STOP' | 'RETRY';
     userId: number;
     createdAt: Date;
-
-    static fromEntity(entity: ErrorLogEntity): ErrorLogDto {
-        const dto = new ErrorLogDto();
-        dto.id = entity.id;
-        dto.code = entity.code;
-        dto.from = entity.from;
-        dto.description = entity.description;
-        dto.detail = entity.detail;
-        dto.stack = entity.stack;
-        dto.level = entity.level;
-        dto.archive = entity.archive;
-        dto.finishWork = entity.finishWork;
-        dto.userId = entity.userId;
-        dto.createdAt = entity.createdAt;
-
-        return dto;
-    }
 }
