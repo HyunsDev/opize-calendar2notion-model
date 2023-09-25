@@ -1,7 +1,3 @@
-## v2.0.1
-
--   필요없는 의존성을 삭제했습니다.
-
 ## v2.0.0
 
 -   `UserNotionProps`에 `last_edited_by`를 추가했습니다.
