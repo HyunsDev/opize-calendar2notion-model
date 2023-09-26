@@ -8,6 +8,7 @@ import {
     DeleteDateColumn,
     ManyToOne,
     JoinColumn,
+    OneToOne,
 } from 'typeorm';
 import { CalendarEntity } from './calendar.entity';
 import { ErrorLogEntity } from './errorLog.entity';
@@ -233,6 +234,9 @@ export class UserEntity {
 
     @OneToMany(() => PaymentLogEntity, (e) => e.user)
     paymentLogs: PaymentLogEntity[];
+
+    @OneToOne(() => UserEntity, (user) => user.sync)
+    sync: UserEntity;
 
     static create(data: {
         name: string;
