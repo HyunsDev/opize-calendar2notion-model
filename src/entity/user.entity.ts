@@ -197,6 +197,12 @@ export class UserEntity {
     googleRedirectUrlVersion: number;
 
     /**
+     * 추가 속성 (location, description)의 동기화 여부입니다.
+     */
+    @Column({ type: 'boolean', default: false })
+    isSyncAdditionalProps: boolean;
+
+    /**
      * 0: 기존 동기화 기간: env.MIN_DATE ~ env.MAX_DATE
      * (연도): 신규 동기화 기간:
      *  TIME_MIN: (연도)-01-01T00:00:00.000Z

@@ -1,3 +1,7 @@
+## v2.1.1
+
+    - `userEntity`에 `isSyncAdditionalProps`를 추가했어요.
+
 ## v2.1.0
 
     - `entity` 와 이에 대한 의존성을 다시 복구했습니다.
