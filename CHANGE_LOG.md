@@ -1,3 +1,11 @@
+## v2.1.3
+
+-   `SyncEntity`에 Primary column이 없는 문제를 해결했어요.
+
+## v2.1.2
+
+-   `SyncEntity`가 export 가 되지 않는 문제를 해결했어요.
+
 ## v2.1.1
 
     - `userEntity`에 `isSyncAdditionalProps`를 추가했어요.

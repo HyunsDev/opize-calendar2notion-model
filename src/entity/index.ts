@@ -7,3 +7,4 @@ export * from './syncbot.entity';
 export * from './migration1.entity';
 export * from './notionWorkspace.entity';
 export * from './syncLog.entity';
+export * from './sync.entity';

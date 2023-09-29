@@ -1,4 +1,12 @@
-import { Column, Entity, OneToOne } from 'typeorm';
+import {
+    Column,
+    CreateDateColumn,
+    DeleteDateColumn,
+    Entity,
+    OneToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
 import { UserEntity } from './user.entity';
 
 /**
@@ -7,6 +15,9 @@ import { UserEntity } from './user.entity';
 
 @Entity('sync')
 export class SyncEntity {
+    @PrimaryGeneratedColumn()
+    id: number;
+
     @OneToOne(() => UserEntity, (user) => user.sync)
     user: UserEntity;
 
@@ -89,4 +100,13 @@ export class SyncEntity {
      */
     @Column({ type: 'int', default: 0 })
     lastSyncStatusRepeatedCount: number;
+
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
+
+    @DeleteDateColumn()
+    deletedAt!: Date | null;
 }
