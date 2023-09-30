@@ -1,3 +1,7 @@
+## v2.1.4
+
+-   `SyncEntity`에 생성자를 추가하고 일부 타입을 변경했어요.
+
 ## v2.1.3
 
 -   `SyncEntity`에 Primary column이 없는 문제를 해결했어요.
