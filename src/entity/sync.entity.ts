@@ -45,13 +45,13 @@ export class SyncEntity {
      * 현재 동기화중인 봇의 아이디입니다.
      */
     @Column({ nullable: true })
-    syncbotId: string;
+    syncbotId: string | null;
 
     /**
      * 동기화봇의 버전입니다.
      */
     @Column({ length: 300, nullable: true })
-    syncbotVersion: string;
+    syncbotVersion: string | null;
 
     /**
      * 동기화가 시작된 시간입니다.
@@ -109,4 +109,11 @@ export class SyncEntity {
 
     @DeleteDateColumn()
     deletedAt!: Date | null;
+
+    constructor(user: UserEntity) {
+        this.user = user;
+        this.isConnected = user.isConnected;
+        this.isForcedStopped = false;
+        this.isWork = false;
+    }
 }
