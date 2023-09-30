@@ -15,6 +15,7 @@ import { ErrorLogEntity } from './errorLog.entity';
 import { EventEntity } from './event.entity';
 import { PaymentLogEntity } from './paymentLog.entity';
 import { NotionWorkspaceEntity } from './notionWorkspace.entity';
+import { SyncEntity } from './sync.entity';
 
 export type UserStatus =
     | 'FIRST'
@@ -241,8 +242,8 @@ export class UserEntity {
     @OneToMany(() => PaymentLogEntity, (e) => e.user)
     paymentLogs: PaymentLogEntity[];
 
-    @OneToOne(() => UserEntity, (user) => user.sync)
-    sync: UserEntity;
+    @OneToOne(() => SyncEntity, (sync) => sync.user)
+    sync: SyncEntity;
 
     static create(data: {
         name: string;
