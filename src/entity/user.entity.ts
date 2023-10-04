@@ -8,14 +8,12 @@ import {
     DeleteDateColumn,
     ManyToOne,
     JoinColumn,
-    OneToOne,
 } from 'typeorm';
 import { CalendarEntity } from './calendar.entity';
 import { ErrorLogEntity } from './errorLog.entity';
 import { EventEntity } from './event.entity';
 import { PaymentLogEntity } from './paymentLog.entity';
 import { NotionWorkspaceEntity } from './notionWorkspace.entity';
-import { SyncEntity } from './sync.entity';
 
 export type UserStatus =
     | 'FIRST'
@@ -125,10 +123,22 @@ export class UserEntity {
     lastCalendarSync: Date;
 
     /**
+     * 마지막으로 구글 캘린더의 Watch를 이용해 이벤트를 동기화한 시간입니다.
+     */
+    @Column({ type: 'datetime', nullable: true })
+    lastGoogleCalendarSync: Date;
+
+    /**
      * 마지막으로 동기화했을 때의 상태입니다.
      */
     @Column({ length: 300, nullable: true })
     lastSyncStatus: string;
+
+    /**
+     * 마지막으로 동기화 했을 때의 상태가 반복된 횟수입니다.
+     */
+    @Column({ type: 'int', default: 0 })
+    lastSyncStatusRepeatedCount: number;
 
     /**
      * 현재 유저의 상태입니다.
@@ -143,10 +153,23 @@ export class UserEntity {
     isConnected: boolean;
 
     /**
+     * 동기화가 유저, 관리자에 의해 강제로 중지되었는지 여부입니다.
+     * 동기화는 `isConnected`가 `true`이고, `isForcedStopped`가 `false`일 때 진행됩니다.
+     */
+    @Column({ type: 'boolean', default: false })
+    isForcedStopped: boolean;
+
+    /**
      * 현재 동기화하고 있는 봇의 아이디입니다.
      */
     @Column({ nullable: true })
     syncbotId: string;
+
+    /**
+     * 동기화봇의 버전입니다.
+     */
+    @Column({ length: 300, nullable: true })
+    syncbotVersion: string | null;
 
     /**
      * 유저의 플랜입니다.
@@ -241,9 +264,6 @@ export class UserEntity {
 
     @OneToMany(() => PaymentLogEntity, (e) => e.user)
     paymentLogs: PaymentLogEntity[];
-
-    @OneToOne(() => SyncEntity, (sync) => sync.user)
-    sync: SyncEntity;
 
     static create(data: {
         name: string;

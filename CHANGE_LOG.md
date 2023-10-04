@@ -1,3 +1,7 @@
+## v2.2.0
+
+-   `SyncEntity`를 삭제하고 해당 엔티티의 내용을 `UserEntity`에 합쳤어요.
+
 ## v2.1.5
 
 -   `UserEntity`의 sync 속성이 잘못되어 있는 문제를 수정했어요.
