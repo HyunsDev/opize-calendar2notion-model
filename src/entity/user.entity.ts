@@ -32,70 +32,160 @@ export type UserNotionProps = {
     link?: string;
     description?: string;
     location?: string;
+    last_edited_by?: string;
 };
 
 @Entity('user')
 export class UserEntity {
+    /**
+     * User의 고유 아이디입니다.
+     */
     @PrimaryGeneratedColumn()
     id: number;
 
+    /**
+     * 유저의 이름입니다.
+     */
     @Column({ length: 128 })
     name: string;
 
+    /**
+     * 유저의 Opize 이메일입니다.
+     */
     @Column({ length: 320, unique: true })
     email: string;
 
+    /**
+     * 유저의 프로필 사진입니다.
+     */
     @Column({ length: 2048 })
     imageUrl: string;
 
+    /**
+     * 유저의 Opize 아이디입니다. 삭제 후 재가입한 유저의 존재로 인해 유일하지 않습니다.
+     */
     @Column({ type: 'int' })
     opizeId: number;
 
+    /**
+     * 유저의 Opize Access Token입니다.
+     */
     @Column({ length: 255, unique: true, nullable: true })
     opizeAccessToken: string;
 
+    /**
+     * 유저의 Google ID입니다.
+     */
     @Column({ length: 255, unique: true, nullable: true })
     googleId: string;
 
+    /**
+     * 유저의 Google Access Token입니다.
+     */
     @Column({ length: 300, nullable: true })
     googleAccessToken: string;
 
+    /**
+     * 유저의 Google 이메일입니다.
+     */
     @Column({ length: 255, nullable: true })
     googleEmail: string;
 
+    /**
+     * 유저의 Google Refresh Token입니다.
+     */
     @Column({ length: 300, nullable: true })
     googleRefreshToken: string;
 
+    /**
+     * 유저의 notionAccessToken입니다. 더 이상 추가로 등록되지 않으며, notionWorkspace를 사용해야 합니다.
+     * @deprecated
+     * @see notionWorkspace
+     */
     @Column({ length: 300, nullable: true })
     notionAccessToken: string;
 
+    /**
+     * 유저의 notionBotId입니다. 더 이상 추가로 등록되지 않으며, notionWorkspace를 사용해야 합니다.
+     * @deprecated
+     * @see notionWorkspace
+     */
     @Column({ length: 300, nullable: true })
     notionBotId: string;
 
     @Column({ length: 300, nullable: true })
     notionDatabaseId: string;
 
+    /**
+     * 마지막으로 동기화된 시간입니다.
+     */
     @Column({ type: 'datetime', nullable: true })
     lastCalendarSync: Date;
 
+    /**
+     * 마지막으로 구글 캘린더의 Watch를 이용해 이벤트를 동기화한 시간입니다.
+     */
+    @Column({ type: 'datetime', nullable: true })
+    lastGoogleCalendarSync: Date;
+
+    /**
+     * 마지막으로 동기화했을 때의 상태입니다.
+     */
     @Column({ length: 300, nullable: true })
     lastSyncStatus: string;
 
+    /**
+     * 마지막으로 동기화 했을 때의 상태가 반복된 횟수입니다.
+     */
+    @Column({ type: 'int', default: 0 })
+    lastSyncStatusRepeatedCount: number;
+
+    /**
+     * 현재 유저의 상태입니다.
+     */
     @Column({ length: 300, default: 'FIRST' })
     status: UserStatus;
 
+    /**
+     * 유저가 동기화를 활성화했는지 여부입니다.
+     */
     @Column({ type: 'boolean', default: false })
     isConnected: boolean;
 
+    /**
+     * 동기화가 유저, 관리자에 의해 강제로 중지되었는지 여부입니다.
+     * 동기화는 `isConnected`가 `true`이고, `isForcedStopped`가 `false`일 때 진행됩니다.
+     */
+    @Column({ type: 'boolean', default: false })
+    isForcedStopped: boolean;
+
+    /**
+     * 현재 동기화하고 있는 봇의 아이디입니다.
+     */
     @Column({ nullable: true })
     syncbotId: string;
 
+    /**
+     * 동기화봇의 버전입니다.
+     */
+    @Column({ length: 300, nullable: true })
+    syncbotVersion: string | null;
+
+    /**
+     * 유저의 플랜입니다.
+     */
     @Column({ default: 'FREE' })
     userPlan: UserPlan;
 
+    /**
+     * 유저의 타입존입니다.
+     */
     @Column({ length: 300, default: 'Asia/Seoul' })
     userTimeZone: string;
 
+    /**
+     * 유저의 노션 데이터베이스 속성 ID 정보입니다. 사용시 JSON으로 파싱하여 이용합니다. parsedNotionProps를 통해 파싱된 정보를 얻을 수 있습니다.
+     */
     @Column({ length: 1000, nullable: true })
     notionProps: string;
 
@@ -103,9 +193,15 @@ export class UserEntity {
         return JSON.parse(this.notionProps);
     }
 
+    /**
+     * 현재 유저가 동기화 중인지를 나타냅니다.
+     */
     @Column({ type: 'boolean', default: false })
     isWork: boolean;
 
+    /**
+     * 현재 동기화가 언제 시작됬는지를 나타냅니다.
+     */
     @Column({ type: 'datetime', nullable: true })
     workStartedAt: Date;
 
@@ -123,6 +219,12 @@ export class UserEntity {
 
     @Column({ type: 'int', default: 1 })
     googleRedirectUrlVersion: number;
+
+    /**
+     * 추가 속성 (location, description)의 동기화 여부입니다.
+     */
+    @Column({ type: 'boolean', default: false })
+    isSyncAdditionalProps: boolean;
 
     /**
      * 0: 기존 동기화 기간: env.MIN_DATE ~ env.MAX_DATE
