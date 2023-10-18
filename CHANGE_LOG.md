@@ -1,3 +1,7 @@
+## v2.2.1
+
+-   `GetAdminErrorsParameter`에 `errorCode`와 `isUserConnected`를 추가했어요.
+
 ## v2.2.0
 
 -   `SyncEntity`를 삭제하고 해당 엔티티의 내용을 `UserEntity`에 합쳤어요.

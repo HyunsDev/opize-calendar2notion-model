@@ -6,6 +6,8 @@ export type GetAdminErrorsParameter = {
     page: number;
     pageSize: number;
     userId?: number;
+    errorCode?: string;
+    isUserConnected?: string;
 };
 export type GetAdminErrorsResponse = {
     errorLogs: (ErrorLogDto & {
@@ -20,7 +22,7 @@ export const getAdminErrors: Endpoint<
     path: () => `/admin/errors`,
     bodyParams: [],
     pathParams: [],
-    queryParams: ['page', 'pageSize', 'userId'],
+    queryParams: ['page', 'pageSize', 'userId', 'errorCode', 'isUserConnected'],
 };
 
 // DELETE /admin/error/:errorId
