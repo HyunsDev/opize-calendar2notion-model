@@ -15,13 +15,13 @@ export class EventEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: '300' })
+    @Column({ length: '1000' })
     googleCalendarEventId: string;
 
     @Column({ length: '300' })
     notionPageId: string;
 
-    @Column({ length: '300' })
+    @Column({ length: '1000' })
     googleCalendarCalendarId: string;
 
     @Column({ type: 'datetime' })

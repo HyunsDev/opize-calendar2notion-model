@@ -1,3 +1,10 @@
+## v2.3.0
+
+-   `데이터베이스 칼럼의 크기를 변경했어요.`
+    -   EventEntity.googleCalendarEventId length 300 -> 1000
+    -   EventEntity.googleCalendarCalendarId length 300 -> 1000
+    -   CalendarEntity.googleCalendarId length 500 -> 1000
+
 ## v2.2.1
 
 -   `GetAdminErrorsParameter`에 `errorCode`와 `isUserConnected`를 추가했어요.
