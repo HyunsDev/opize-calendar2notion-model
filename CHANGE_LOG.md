@@ -1,3 +1,7 @@
+## v2.3.1
+
+-   `PostUserCalendarRenameParameter` 엔드포인트를 추가했어요.
+
 ## v2.3.0
 
 -   `데이터베이스 칼럼의 크기를 변경했어요.`
